@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+```
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<meta
+    name="description"
+    content="Login to RecoveryBoard + RescueMesh — disaster response and recovery platform."
+>
+
+<title>Login — RecoveryBoard + RescueMesh</title>
+
+<link
+    rel="icon"
+    type="image/svg+xml"
+    href="images/logo.svg"
+>
+
+<link
+    rel="stylesheet"
+    href="css/style.css"
+>
+```
+
+</head>
+
+<body>
+
+```
+<a
+    class="skip-link"
+    href="#login-form"
+>
+    Skip to login form
+</a>
+
+
+<div class="auth-page">
+
+
+    <!-- ==================================================
+         LEFT BRAND PANEL
+    =================================================== -->
+
+    <aside
+        class="auth-brand"
+        aria-label="About RecoveryBoard"
+    >
+
+        <a
+            class="logo"
+            href="index.html"
+        >
+
+            <img
+                class="logo-mark"
+                src="images/logo.svg"
+                alt="RecoveryBoard logo"
+                width="40"
+                height="40"
+            >
+
+            <span class="logo-text">
+
+                <span
+                    class="logo-main"
+                    style="color:#fff;"
+                >
+                    RecoveryBoard
+                </span>
+
+                <span class="logo-sub">
+                    RescueMesh
+                </span>
+
+            </span>
+
+        </a>
+
+
+        <div>
+
+            <h2>
+                From Disaster to Recovery —
+                Faster, Smarter, Connected.
+            </h2>
+
+            <p>
+                One real-time platform connecting
+                citizens, rescue teams and authorities —
+                from the first report to the final
+                recovery milestone.
+            </p>
+
+
+            <ul
+                class="auth-brand-points"
+                style="margin-top:var(--sp-5);"
+            >
+
+                <li>
+                    <span class="tick">✓</span>
+
+                    Role-based dashboards for citizens,
+                    rescue teams and authorities
+                </li>
+
+
+                <li>
+                    <span class="tick">✓</span>
+
+                    Transparent priority scoring with
+                    reasons you can read
+                </li>
+
+
+                <li>
+                    <span class="tick">✓</span>
+
+                    Live RecoveryBoard: status, teams,
+                    resources and blockers
+                </li>
+
+
+                <li>
+                    <span class="tick">✓</span>
+
+                    Every status change recorded in
+                    an audit timeline
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <p
+            class="text-sm"
+            style="
+                color:rgba(255,255,255,0.6);
+                margin:0;
+            "
+        >
+            🚨 In an emergency, contact your local
+            emergency services first.
+        </p>
+
+    </aside>
+
+
+
+    <!-- ==================================================
+         LOGIN PANEL
+    =================================================== -->
+
+    <main class="auth-panel">
+
+        <div class="auth-card">
+
+
+            <!-- HEADER -->
+
+            <div class="auth-head">
+
+                <h1>
+                    Welcome back
+                </h1>
+
+                <p>
+                    Login to report incidents, respond
+                    to alerts or track recovery.
+                </p>
+
+            </div>
+
+
+
+            <!-- ALERT -->
+
+            <div
+                class="form-alert"
+                id="form-alert"
+                role="alert"
+            ></div>
+
+
+
+            <!-- ==================================================
+                 LOGIN FORM
+            =================================================== -->
+
+            <form
+                id="login-form"
+                novalidate
+            >
+
+
+                <!-- EMAIL -->
+
+                <div class="field">
+
+                    <label for="email">
+
+                        Email
+
+                        <span class="req">
+                            *
+                        </span>
+
+                    </label>
+
+
+                    <input
+                        class="input"
+                        type="email"
+                        id="email"
+                        name="email"
+                        autocomplete="email"
+                        placeholder="you@example.org"
+                        required
+                    >
+
+
+                    <span
+                        class="field-error"
+                        id="email-error"
+                    >
+                        Enter a valid email address.
+                    </span>
+
+                </div>
+
+
+
+                <!-- PASSWORD -->
+
+                <div class="field">
+
+                    <label for="password">
+
+                        Password
+
+                        <span class="req">
+                            *
+                        </span>
+
+                    </label>
+
+
+                    <input
+                        class="input"
+                        type="password"
+                        id="password"
+                        name="password"
+                        autocomplete="current-password"
+                        placeholder="••••••••"
+                        required
+                    >
+
+
+                    <span
+                        class="field-error"
+                        id="password-error"
+                    >
+                        Password is required.
+                    </span>
+
+                </div>
+
+
+
+                <!-- REMEMBER SESSION -->
+
+                <div class="checkbox-row">
+
+                    <input
+                        type="checkbox"
+                        id="remember"
+                        name="remember"
+                    >
+
+
+                    <label for="remember">
+                        Remember session on this device
+                    </label>
+
+                </div>
+
+
+
+                <!-- LOGIN BUTTON -->
+
+                <button
+                    class="btn btn-primary btn-block btn-lg"
+                    type="submit"
+                    id="login-btn"
+                    style="margin-top:var(--sp-3);"
+                >
+                    Login
+                </button>
+
+            </form>
+
+
+
+            <!-- ==================================================
+                 REGISTER
+            =================================================== -->
+
+            <div
+                style="
+                    text-align:center;
+                    margin-top:24px;
+                    padding-top:20px;
+                    border-top:1px solid #e5e7eb;
+                "
+            >
+
+                <p
+                    style="
+                        margin:0 0 12px 0;
+                        color:#555;
+                    "
+                >
+                    New to RecoveryBoard?
+                </p>
+
+
+                <a
+                    href="register.html"
+                    style="
+                        display:block;
+                        width:100%;
+                        box-sizing:border-box;
+                        padding:12px 16px;
+                        background:#ffffff;
+                        color:#2563eb;
+                        border:2px solid #2563eb;
+                        border-radius:8px;
+                        text-decoration:none;
+                        text-align:center;
+                        font-weight:600;
+                    "
+                >
+                    Create Account
+                </a>
+
+            </div>
+
+
+
+            <!-- HOME -->
+
+            <p
+                style="
+                    text-align:center;
+                    margin-top:16px;
+                "
+            >
+
+                <a href="index.html">
+                    ← Back to home
+                </a>
+
+            </p>
+
+
+        </div>
+
+    </main>
+
+</div>
+
+
+
+<!-- ==================================================
+     JAVASCRIPT
+=================================================== -->
+
+<script src="js/ui.js"></script>
+
+<script src="js/api.js"></script>
+
+<script src="js/auth.js"></script>
+
+<script src="js/login.js"></script>
+
+
+</body>
+
+</html>

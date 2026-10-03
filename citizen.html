@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Citizen dashboard — report incidents, send emergency SOS and track recovery on RecoveryBoard.">
+    <title>Citizen Dashboard — RecoveryBoard + RescueMesh</title>
+    <link rel="icon" type="image/svg+xml" href="images/logo.svg">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <div class="app">
+        <!-- ================= SIDEBAR ================= -->
+        <aside class="sidebar" id="sidebar" aria-label="Dashboard navigation">
+            <div class="sidebar-brand">
+                <a class="logo" href="index.html">
+                    <img class="logo-mark" src="images/logo.svg" alt="" width="40" height="40">
+                    <span class="logo-text">
+                        <span class="logo-main" style="color:#fff;">RecoveryBoard</span>
+                        <span class="logo-sub">RescueMesh</span>
+                    </span>
+                </a>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-section">Citizen</div>
+                <button class="nav-item active" type="button" data-view="dashboard"><span class="nav-icon" aria-hidden="true">🏠</span> Dashboard</button>
+                <button class="nav-item" type="button" data-view="sos"><span class="nav-icon" aria-hidden="true">🚨</span> Emergency SOS</button>
+                <button class="nav-item" type="button" data-view="report"><span class="nav-icon" aria-hidden="true">📝</span> Report Incident</button>
+                <button class="nav-item" type="button" data-view="reports"><span class="nav-icon" aria-hidden="true">📋</span> My Reports</button>
+                <button class="nav-item" type="button" data-view="recovery"><span class="nav-icon" aria-hidden="true">📈</span> Recovery Status</button>
+                <div class="nav-section">Account</div>
+                <button class="nav-item" type="button" data-view="profile"><span class="nav-icon" aria-hidden="true">👤</span> Profile</button>
+            </nav>
+            <div class="sidebar-foot">
+                <div class="user-chip">
+                    <span class="user-avatar" id="user-avatar" aria-hidden="true">C</span>
+                    <span class="user-meta">
+                        <span class="user-name" id="user-name">…</span>
+                        <span class="user-role" id="user-role">Citizen</span>
+                    </span>
+                </div>
+                <button class="nav-item" type="button" data-action="logout"><span class="nav-icon" aria-hidden="true">🚪</span> Logout</button>
+            </div>
+        </aside>
+        <div class="backdrop" id="sidebar-backdrop"></div>
+
+        <!-- ================= MAIN ================= -->
+        <div class="main">
+            <header class="topbar">
+                <div style="display:flex; align-items:center; gap:var(--sp-3);">
+                    <button class="sidebar-toggle" id="sidebar-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false">☰</button>
+                    <div>
+                        <p class="page-title" id="greeting">Welcome, Citizen</p>
+                        <span class="page-sub">RecoveryBoard + RescueMesh · Citizen portal</span>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <span class="badge badge-neutral" id="connection-badge">● Live</span>
+                    <button class="btn btn-danger btn-sm" type="button" data-goto="sos">🚨 SOS</button>
+                </div>
+            </header>
+
+            <main class="content" id="main-content">
+                <!-- ============ VIEW: DASHBOARD ============ -->
+                <section class="view active" id="view-dashboard" aria-labelledby="dash-title">
+                    <div class="view-head">
+                        <div>
+                            <h2 id="dash-title">Dashboard</h2>
+                            <p>Your reporting activity and recovery progress at a glance.</p>
+                        </div>
+                        <button class="btn btn-primary" type="button" data-goto="report">＋ Report Incident</button>
+                    </div>
+
+                    <div class="stat-grid" id="citizen-stats">
+                        <div class="stat-card accent-info"><span class="stat-icon" aria-hidden="true">📄</span><div class="stat-value" id="stat-active">–</div><div class="stat-label">Active Reports</div></div>
+                        <div class="stat-card accent-warning"><span class="stat-icon" aria-hidden="true">⏳</span><div class="stat-value" id="stat-pending">–</div><div class="stat-label">Pending Verification</div></div>
+                        <div class="stat-card accent-violet"><span class="stat-icon" aria-hidden="true">🔧</span><div class="stat-value" id="stat-progress">–</div><div class="stat-label">In Progress</div></div>
+                        <div class="stat-card accent-success"><span class="stat-icon" aria-hidden="true">✅</span><div class="stat-value" id="stat-resolved">–</div><div class="stat-label">Resolved</div></div>
+                    </div>
+
+                    <div class="grid-2" style="margin-top:var(--sp-5);">
+                        <div class="card">
+                            <div class="card-title-row">
+                                <h3 style="font-size:1.1rem;">Recent reports</h3>
+                                <button class="btn btn-ghost btn-sm" type="button" data-goto="reports">View all</button>
+                            </div>
+                            <div id="recent-reports"><div class="loading-inline"><span class="spinner spinner-dark"></span> Loading your reports…</div></div>
+                        </div>
+                        <div class="card">
+                            <div class="card-title-row">
+                                <h3 style="font-size:1.1rem;">Quick actions</h3>
+                            </div>
+                            <div class="stack" style="gap:var(--sp-3);">
+                                <button class="btn btn-danger btn-block" type="button" data-goto="sos">🚨 Emergency SOS</button>
+                                <button class="btn btn-primary btn-block" type="button" data-goto="report">📝 Report an Incident</button>
+                                <button class="btn btn-secondary btn-block" type="button" data-goto="recovery">📈 Track Recovery Status</button>
+                            </div>
+                            <p class="caption" style="margin-top:var(--sp-4);">Every report you file creates a recovery task that authorities verify, prioritize and assign to a rescue team.</p>
+                        </div>
+                    </div>
+                </section>
+
+
+                <!-- ============ VIEW: EMERGENCY SOS ============ -->
+                <section class="view" id="view-sos" aria-labelledby="sos-title">
+                    <div class="view-head">
+                        <div>
+                            <h2 id="sos-title">Emergency SOS</h2>
+                            <p>Request immediate assistance from responders.</p>
+                        </div>
+                    </div>
+
+                    <div class="grid-2" style="align-items:start;">
+                        <div class="sos-card" id="sos-card">
+                            <div class="sos-ring" aria-hidden="true">🚨</div>
+                            <h2>Emergency SOS</h2>
+                            <p>Press only when you need immediate emergency assistance. Your current location (if permitted) is attached to the request.</p>
+                            <button class="btn btn-sos btn-lg" type="button" id="sos-send-btn">SEND SOS</button>
+                            <div class="sos-alt">
+                                Not an emergency? <button type="button" data-goto="report">file an incident report instead</button>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-title-row"><h3 style="font-size:1.1rem;">What happens when you send an SOS</h3></div>
+                            <ol class="timeline" style="margin-top:var(--sp-3);">
+                                <li class="timeline-step" style="padding-bottom:var(--sp-4);">
+                                    <div class="timeline-dot" style="width:44px;height:44px;font-size:1.1rem;" aria-hidden="true">1</div>
+                                    <span class="timeline-arrow" style="left:19px;" aria-hidden="true">↓</span>
+                                    <h3>Confirmation</h3>
+                                    <p>You confirm the request so accidental presses don't trigger responders.</p>
+                                </li>
+                                <li class="timeline-step" style="padding-bottom:var(--sp-4);">
+                                    <div class="timeline-dot" style="width:44px;height:44px;font-size:1.1rem;" aria-hidden="true">2</div>
+                                    <span class="timeline-arrow" style="left:19px;" aria-hidden="true">↓</span>
+                                    <h3>Location capture</h3>
+                                    <p>Your device shares its location so responders know where to go.</p>
+                                </li>
+                                <li class="timeline-step">
+                                    <div class="timeline-dot" style="width:44px;height:44px;font-size:1.1rem;" aria-hidden="true">3</div>
+                                    <h3>Dispatch</h3>
+                                    <p>The request is forwarded to the response authority for dispatch.</p>
+                                </li>
+                            </ol>
+                            <div class="form-alert info show" style="margin-top:var(--sp-4);">
+                                ℹ Your location is only sent with an SOS or report you explicitly submit.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============ VIEW: REPORT INCIDENT (wizard) ============ -->
+                <section class="view" id="view-report" aria-labelledby="report-title">
+                    <div class="view-head">
+                        <div>
+                            <h2 id="report-title">Report Incident</h2>
+                            <p>Five short steps — we'll guide you through it.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="wizard-steps" id="wizard-steps" aria-hidden="true">
+                            <div class="wizard-step active" data-step="1"><span class="ws-no">1</span> Type</div>
+                            <div class="wizard-step" data-step="2"><span class="ws-no">2</span> Severity</div>
+                            <div class="wizard-step" data-step="3"><span class="ws-no">3</span> Location</div>
+                            <div class="wizard-step" data-step="4"><span class="ws-no">4</span> Details</div>
+                            <div class="wizard-step" data-step="5"><span class="ws-no">5</span> Submit</div>
+                        </div>
+
+                        <form id="report-form" novalidate>
+                            <!-- STEP 1 -->
+                            <div class="wizard-panel active" data-panel="1">
+                                <h3 style="font-size:1.1rem;">What happened?</h3>
+                                <div class="field">
+                                    <label for="incident-id">Active disaster incident<span class="req" aria-hidden="true">*</span></label>
+                                    <select class="select" id="incident-id" required aria-describedby="incident-id-error"></select>
+                                    <span class="field-error" id="incident-id-error">Select the incident this damage belongs to.</span>
+                                    <span class="field-hint">Reports are filed under an active disaster incident created by an authority.</span>
+                                </div>
+                                <div class="field">
+                                    <label for="damage-type">Incident / damage type<span class="req" aria-hidden="true">*</span></label>
+                                    <select class="select" id="damage-type" required aria-describedby="damage-type-error">
+                                        <option value="">Select damage type…</option>
+                                        <option value="road_blocked">Road Blocked</option>
+                                        <option value="tree_fallen">Tree Fallen</option>
+                                        <option value="electricity_damaged">Electricity Damage</option>
+                                        <option value="water_supply_broken">Water Supply Broken</option>
+                                        <option value="building_damaged">Building Damaged</option>
+                                        <option value="bridge_damaged">Bridge Damaged</option>
+                                        <option value="communication_network_damaged">Communication Network Damaged</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                    <span class="field-error" id="damage-type-error">Choose a damage type.</span>
+                                </div>
+                            </div>
+
+                            <!-- STEP 2 -->
+                            <div class="wizard-panel" data-panel="2">
+                                <h3 style="font-size:1.1rem;">How severe is it?</h3>
+                                <div class="field">
+                                    <label for="severity">Severity<span class="req" aria-hidden="true">*</span></label>
+                                    <select class="select" id="severity" required aria-describedby="severity-error">
+                                        <option value="">Select severity…</option>
+                                        <option value="low">Low — minor disruption</option>
+                                        <option value="medium">Medium — significant disruption</option>
+                                        <option value="high">High — serious danger or major disruption</option>
+                                        <option value="critical">Critical — life-threatening</option>
+                                    </select>
+                                    <span class="field-error" id="severity-error">Choose a severity level.</span>
+                                </div>
+                                <div class="field">
+                                    <label for="people-affected">People affected</label>
+                                    <input class="input" type="number" id="people-affected" min="0" max="10000000" step="1" value="0"
+                                           inputmode="numeric" aria-describedby="people-hint">
+                                    <span class="field-hint" id="people-hint">An estimate helps responders prioritize (0 if unknown).</span>
+                                </div>
+                            </div>
+
+                            <!-- STEP 3 -->
+                            <div class="wizard-panel" data-panel="3">
+                                <h3 style="font-size:1.1rem;">Where is it?</h3>
+                                <div class="field">
+                                    <label for="location">Location description<span class="req" aria-hidden="true">*</span></label>
+                                    <input class="input" type="text" id="location" maxlength="300"
+                                           placeholder="e.g. NH-17 near City Hospital" required aria-describedby="location-error">
+                                    <span class="field-error" id="location-error">Describe the location (at least 1 character).</span>
+                                </div>
+                                <div class="field">
+                                    <span class="field-label">Coordinates</span>
+                                    <div class="btn-row" style="margin-bottom:var(--sp-3);">
+                                        <button class="btn btn-secondary" type="button" id="use-location-btn">📍 Use My Current Location</button>
+                                    </div>
+                                    <div class="location-panel" id="location-panel" aria-live="polite">
+                                        <div class="loc-address" id="loc-address">No coordinates captured yet</div>
+                                        <div class="loc-coords">
+                                            <span>Lat: <strong id="loc-lat">—</strong></span>
+                                            <span>Lng: <strong id="loc-lng">—</strong></span>
+                                        </div>
+                                    </div>
+                                    <span class="field-error" id="coords-error">Capture your coordinates before continuing.</span>
+                                    <span class="field-hint">No map provider is configured — coordinates are shown as plain data.</span>
+                                </div>
+                            </div>
+
+
+
+                            <!-- STEP 4 -->
+                            <div class="wizard-panel" data-panel="4">
+                                <h3 style="font-size:1.1rem;">Tell us more</h3>
+                                <div class="field">
+                                    <label for="description">Description<span class="req" aria-hidden="true">*</span></label>
+                                    <textarea class="textarea" id="description" minlength="5" maxlength="5000"
+                                              placeholder="Describe what you saw, when it happened, and any immediate dangers…"
+                                              required aria-describedby="description-error"></textarea>
+                                    <span class="field-error" id="description-error">Description must be at least 5 characters.</span>
+                                </div>
+                                <div class="field">
+                                    <label for="resources-needed">Resources needed (optional)</label>
+                                    <div id="resource-rows"></div>
+                                    <button class="btn btn-ghost btn-sm" type="button" id="add-resource-btn">＋ Add resource</button>
+                                    <span class="field-hint">e.g. ambulance, rescue team, equipment — quantities are noted for responders.</span>
+                                </div>
+                            </div>
+
+                            <!-- STEP 5 -->
+                            <div class="wizard-panel" data-panel="5">
+                                <h3 style="font-size:1.1rem;">Review &amp; submit</h3>
+                                <p class="text-sm muted">Check the details below, then submit your report.</p>
+                                <dl class="review-list" id="review-list"></dl>
+                                <div class="form-alert info show" style="margin-top:var(--sp-4);">
+                                    ℹ Submitting creates a damage report <strong>and</strong> a recovery task on the RecoveryBoard.
+                                </div>
+                            </div>
+
+                            <div class="wizard-nav">
+                                <button class="btn btn-secondary" type="button" id="wizard-back" disabled>← Back</button>
+                                <button class="btn btn-primary" type="button" id="wizard-next">Next →</button>
+                                <button class="btn btn-success" type="submit" id="wizard-submit" style="display:none;">Submit Report</button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+
+                <!-- ============ VIEW: MY REPORTS ============ -->
+                <section class="view" id="view-reports" aria-labelledby="reports-title">
+                    <div class="view-head">
+                        <div>
+                            <h2 id="reports-title">My Reports</h2>
+                            <p>Every incident you have reported and its current workflow status.</p>
+                        </div>
+                        <button class="btn btn-primary" type="button" data-goto="report">＋ New Report</button>
+                    </div>
+
+                    <div class="board-toolbar">
+                        <div class="tool tool-search">
+                            <label for="reports-search">Search</label>
+                            <input class="input" type="search" id="reports-search" placeholder="Search incidents...">
+                        </div>
+                        <div class="tool">
+                            <label for="reports-status">Status</label>
+                            <select class="select" id="reports-status">
+                                <option value="">All statuses</option>
+                                <option value="reported">Reported</option>
+                                <option value="verified">Verified</option>
+                                <option value="assigned">Assigned</option>
+                                <option value="working">Working</option>
+                                <option value="resolved">Resolved</option>
+                            </select>
+                        </div>
+                        <div class="tool">
+                            <label for="reports-severity">Severity</label>
+                            <select class="select" id="reports-severity">
+                                <option value="">All severities</option>
+                                <option value="critical">Critical</option>
+                                <option value="high">High</option>
+                                <option value="medium">Medium</option>
+                                <option value="low">Low</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-secondary btn-sm" type="button" id="reports-clear">Clear Filters</button>
+                    </div>
+
+                    <div class="board-meta">
+                        <span id="reports-count">Loading…</span>
+                    </div>
+
+                    <div id="reports-list"><div class="loading-inline"><span class="spinner spinner-dark"></span> Loading your reports…</div></div>
+
+                    <div class="pagination" id="reports-pagination"></div>
+                </section>
+
+                <!-- ============ VIEW: RECOVERY STATUS ============ -->
+                <section class="view" id="view-recovery" aria-labelledby="recovery-title">
+                    <div class="view-head">
+                        <div>
+                            <h2 id="recovery-title">Recovery Status</h2>
+                            <p>Reported → Verified → Assigned → Working → Resolved — live for each of your reports.</p>
+                        </div>
+                    </div>
+                    <div id="recovery-list" class="stack"><div class="loading-inline"><span class="spinner spinner-dark"></span> Loading recovery status…</div></div>
+                </section>
+
+                <!-- ============ VIEW: PROFILE ============ -->
+                <section class="view" id="view-profile" aria-labelledby="profile-title">
+                    <div class="view-head">
+                        <div>
+                            <h2 id="profile-title">Profile</h2>
+                            <p>Your account as stored by the backend.</p>
+                        </div>
+                    </div>
+                    <div class="card" style="max-width:640px;">
+                        <dl class="kv" style="grid-template-columns:160px 1fr;">
+                            <dt>Name</dt><dd id="profile-name">—</dd>
+                            <dt>Email</dt><dd id="profile-email">—</dd>
+                            <dt>Role</dt><dd id="profile-role">—</dd>
+                            <dt>Status</dt><dd id="profile-active">—</dd>
+                            <dt>Member since</dt><dd id="profile-since">—</dd>
+                        </dl>
+                        <div class="btn-row" style="margin-top:var(--sp-5);">
+                            <button class="btn btn-danger" type="button" data-action="logout">🚪 Logout</button>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+
+    <!-- ================= DRAWER: report detail ================= -->
+    <div class="backdrop" id="drawer-backdrop"></div>
+    <aside class="drawer" id="report-drawer" aria-hidden="true" aria-labelledby="drawer-title">
+        <div class="drawer-head">
+            <div>
+                <span class="eyebrow" id="drawer-eyebrow">Report detail</span>
+                <h3 id="drawer-title">—</h3>
+                <div id="drawer-badges" style="display:flex; gap:6px; flex-wrap:wrap;"></div>
+            </div>
+            <button class="icon-btn" type="button" data-close-drawer aria-label="Close detail panel">✕</button>
+        </div>
+        <div class="drawer-body" id="drawer-body">
+            <div class="loading-inline"><span class="spinner spinner-dark"></span> Loading details…</div>
+        </div>
+        <div class="drawer-foot" id="drawer-foot" style="display:none;"></div>
+    </aside>
+
+    <!-- ================= MODAL: SOS confirmation ================= -->
+    <div class="modal-backdrop" id="sos-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="sos-modal-title">
+        <div class="modal">
+            <div class="modal-head">
+                <h3 id="sos-modal-title">Send emergency SOS?</h3>
+                <button class="icon-btn" type="button" data-close-modal aria-label="Close dialog">✕</button>
+            </div>
+            <div class="modal-body modal-center">
+                <div class="modal-icon danger" aria-hidden="true">🚨</div>
+                <p><strong>Are you sure you want to send an emergency SOS?</strong></p>
+                <p class="text-sm muted">Your location (if permitted) will be attached. Only use this when you need immediate assistance.</p>
+                <div id="sos-progress" style="display:none; margin-top:var(--sp-4);">
+                    <div class="loading-inline"><span class="spinner spinner-dark"></span> <span id="sos-progress-text">Sending emergency request…</span></div>
+                </div>
+                <div id="sos-result" style="display:none; margin-top:var(--sp-4);"></div>
+            </div>
+            <div class="modal-foot">
+                <button class="btn btn-secondary" type="button" data-close-modal id="sos-cancel">Cancel</button>
+                <button class="btn btn-danger" type="button" id="sos-confirm">SEND SOS</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/ui.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/citizen.js"></script>
+</body>
+</html>
+
+

@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" role="img" aria-label="Disaster response coordination illustration: citizens report incidents, a command center coordinates rescue teams">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0d1b33"/>
+      <stop offset="1" stop-color="#123a5e"/>
+    </linearGradient>
+    <linearGradient id="screen" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b3d91"/>
+      <stop offset="1" stop-color="#2f62c4"/>
+    </linearGradient>
+    <radialGradient id="glow" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#d92b2b" stop-opacity=".55"/>
+      <stop offset="1" stop-color="#d92b2b" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="640" height="480" rx="24" fill="url(#sky)"/>
+
+  <!-- radar sweep glow -->
+  <circle cx="470" cy="130" r="120" fill="url(#glow)"/>
+
+  <!-- mesh network (RescueMesh) -->
+  <g stroke="#5f8fe0" stroke-opacity=".5" stroke-width="1.5">
+    <path d="M90 90 L200 60 M200 60 L330 110 M330 110 L470 70 M470 70 L560 140 M90 90 L150 190 M150 190 L330 110 M150 190 L260 250 M260 250 L470 70 M260 250 L400 300 M400 300 L560 140"/>
+  </g>
+  <g fill="#9dbdf5">
+    <circle cx="90" cy="90" r="7"/><circle cx="200" cy="60" r="5"/>
+    <circle cx="330" cy="110" r="6"/><circle cx="470" cy="70" r="5"/>
+    <circle cx="560" cy="140" r="7"/><circle cx="150" cy="190" r="5"/>
+    <circle cx="260" cy="250" r="6"/><circle cx="400" cy="300" r="5"/>
+  </g>
+
+  <!-- SOS beacon -->
+  <g transform="translate(470 70)">
+    <circle r="26" fill="none" stroke="#d92b2b" stroke-width="2" opacity=".7">
+      <animate attributeName="r" values="26;40;26" dur="2.4s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values=".7;0;.7" dur="2.4s" repeatCount="indefinite"/>
+    </circle>
+    <circle r="15" fill="#d92b2b"/>
+    <path d="M0 -7v10M-6 1h12" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+  </g>
+
+  <!-- command center screen (RecoveryBoard) -->
+  <g transform="translate(60 250)">
+    <rect x="0" y="0" width="300" height="180" rx="12" fill="#0a1222" stroke="#2f62c4" stroke-width="2"/>
+    <rect x="14" y="14" width="272" height="24" rx="6" fill="url(#screen)"/>
+    <circle cx="28" cy="26" r="5" fill="#ff5f5f"/>
+    <rect x="40" y="22" width="90" height="8" rx="4" fill="#ffffff" opacity=".7"/>
+    <!-- kanban columns -->
+    <g>
+      <rect x="14" y="50" width="60" height="116" rx="6" fill="#f4f6fb" opacity=".14"/>
+      <rect x="82" y="50" width="60" height="116" rx="6" fill="#f4f6fb" opacity=".14"/>
+      <rect x="150" y="50" width="60" height="116" rx="6" fill="#f4f6fb" opacity=".14"/>
+      <rect x="218" y="50" width="60" height="116" rx="6" fill="#f4f6fb" opacity=".14"/>
+    </g>
+    <!-- cards -->
+    <g>
+      <rect x="20" y="60" width="48" height="26" rx="4" fill="#f2d64b"/>
+      <rect x="20" y="92" width="48" height="26" rx="4" fill="#f2d64b" opacity=".7"/>
+      <rect x="88" y="60" width="48" height="26" rx="4" fill="#4aa8e0"/>
+      <rect x="156" y="60" width="48" height="26" rx="4" fill="#8f6fe8"/>
+      <rect x="156" y="92" width="48" height="26" rx="4" fill="#8f6fe8" opacity=".7"/>
+      <rect x="224" y="60" width="48" height="26" rx="4" fill="#ee9f1c"/>
+      <rect x="224" y="92" width="48" height="26" rx="4" fill="#ee9f1c" opacity=".7"/>
+      <rect x="224" y="124" width="48" height="26" rx="4" fill="#ee9f1c" opacity=".5"/>
+    </g>
+    <rect x="110" y="176" width="80" height="10" fill="#0a1222"/>
+    <rect x="86" y="186" width="128" height="8" rx="4" fill="#2f62c4"/>
+  </g>
+
+  <!-- ambulance (rescue unit) -->
+  <g transform="translate(400 330)">
+    <rect x="0" y="14" width="130" height="58" rx="10" fill="#f4f6fb"/>
+    <path d="M130 30 h34 l16 24 v18 h-50 z" fill="#f4f6fb"/>
+    <rect x="0" y="56" width="180" height="16" fill="#d92b2b"/>
+    <rect x="150" y="34" width="20" height="16" rx="3" fill="#bfe2ee"/>
+    <!-- red cross -->
+    <rect x="46" y="24" width="34" height="34" rx="6" fill="#d92b2b"/>
+    <path d="M63 30v22M52 41h22" stroke="#fff" stroke-width="7" stroke-linecap="round"/>
+    <!-- beacon -->
+    <rect x="30" y="2" width="26" height="12" rx="5" fill="#0b3d91"/>
+    <rect x="44" y="2" width="12" height="12" rx="5" fill="#d92b2b">
+      <animate attributeName="opacity" values="1;.2;1" dur="1s" repeatCount="indefinite"/>
+    </rect>
+    <circle cx="44" cy="74" r="14" fill="#10192e"/><circle cx="44" cy="74" r="6" fill="#8b93a7"/>
+    <circle cx="150" cy="74" r="14" fill="#10192e"/><circle cx="150" cy="74" r="6" fill="#8b93a7"/>
+  </g>
+
+  <!-- citizen reporting phone -->
+  <g transform="translate(548 250)">
+    <rect x="0" y="0" width="64" height="110" rx="12" fill="#0a1222" stroke="#9dbdf5" stroke-width="2"/>
+    <rect x="8" y="14" width="48" height="72" rx="6" fill="#123a5e"/>
+    <circle cx="32" cy="42" r="13" fill="#d92b2b"/>
+    <path d="M32 36v9M28 41h8" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>
+    <rect x="14" y="62" width="36" height="6" rx="3" fill="#9dbdf5" opacity=".8"/>
+    <rect x="14" y="72" width="24" height="6" rx="3" fill="#9dbdf5" opacity=".5"/>
+    <circle cx="32" cy="98" r="5" fill="#2f62c4"/>
+  </g>
+</svg>
